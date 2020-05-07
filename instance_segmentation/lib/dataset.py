@@ -8,6 +8,7 @@ from PIL import Image
 import lmdb
 import sys
 import numpy as np
+from torchvision.transforms import transforms
 
 from instance_segmentation.lib.utils import ImageUtilities as IU
 
@@ -274,7 +275,13 @@ class AlignCollate(object):
         semantic_annotation = np.array(semantic_annotation)
 
         # Image Normalization
-        image = self.image_normalizer(image)
+        # print(type(image), '\n', image)
+        # image = self.image_normalizer(image)
+        image = transforms.Compose([transforms.ToTensor()])(image)
+        # Make biggest value in tensor equal to one
+        image /= torch.max(image)
+
+        # print(torch.unique(image))
 
         return (image, semantic_annotation, instance_annotation_resized)
 

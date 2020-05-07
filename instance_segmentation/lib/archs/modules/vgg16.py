@@ -53,8 +53,11 @@ class VGG16(nn.Module):
         self.return_intermediate_outputs = return_intermediate_outputs
 
         self.cnn = models.__dict__['vgg16'](pretrained=pretrained)
-        self.cnn = nn.Sequential(*list(self.cnn.children())[0])
+
+        self.cnn = nn.Sequential(nn.Conv2d(1, 64, kernel_size=3, padding=1), *list(self.cnn.children())[0][1:])
+        # print("first: \n", self.cnn)
         self.cnn = nn.Sequential(*list(self.cnn.children())[: n_layers])
+        # print("CNN: \n", self.cnn)
 
         if self.use_coordinates:
             self.cnn = CoordConvNet(self.cnn, True, usegpu)

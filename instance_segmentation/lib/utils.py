@@ -14,7 +14,7 @@ class ImageUtilities(object):
         if is_raw:
             img = Image.open(StringIO(image_path))
         else:
-            img = Image.open(image_path).convert('RGB')
+            img = Image.open(image_path)#.convert('RGB')
         img_copy = img.copy()
         img.close()
         return img_copy

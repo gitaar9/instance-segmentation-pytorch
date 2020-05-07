@@ -1,6 +1,8 @@
 import cv2
 import numpy as np
+import torch
 from sklearn.cluster import KMeans
+from torchvision.transforms import transforms
 
 from instance_segmentation.lib.archs.modules.coord_conv import AddCoordinates
 from instance_segmentation.lib.utils import ImageUtilities
@@ -33,7 +35,12 @@ class Prediction(object):
         image_width, image_height = img.size
 
         img = self.img_resizer(img)
-        img = self.normalizer(img)
+        # img = self.normalizer(img)
+        img = transforms.Compose([transforms.ToTensor()])(img)
+        # Make biggest value in tensor equal to one
+        img /= torch.max(img)
+        # print(torch.max(img))
+        # print(torch.unique(img / torch.max(img)))
 
         return img, image_height, image_width
 
@@ -85,6 +92,7 @@ class Prediction(object):
     def predict(self, image_path):
 
         image, image_height, image_width = self.get_image(image_path)
+        print(image.shape)
         image = image.unsqueeze(0)
 
         sem_seg_prediction, ins_seg_prediction, n_objects_prediction = \

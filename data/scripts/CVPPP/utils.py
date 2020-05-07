@@ -29,7 +29,13 @@ def create_dataset(
     n_images_cntr = 1
     for i in range(n_images):
         image_path = image_paths[i]
+
+        ### START OF MY EDIT ###
+        # use the black and white images instead:
+        image_path = image_path.split('_rgb')[0] + "_fg.png"
         print(image_path)
+        ### END OF MY EDIT ###
+
         semantic_annotation_path = semantic_annotation_paths[i]
         instance_annotation_path = instance_annotation_paths[i]
 
