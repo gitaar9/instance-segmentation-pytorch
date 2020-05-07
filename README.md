@@ -11,22 +11,22 @@ This repository implements [Semantic Instance Segmentation with a Discriminative
 
 ## Modules
 
-* [Convolutional GRU](code/lib/archs/modules/README.md#3)
-* [Coordinate Convolution](code/lib/archs/modules/README.md#44)
-	* [AddCoordinates](code/lib/archs/modules/README.md#44)
-	* [CoordConv](code/lib/archs/modules/README.md#81)
-	* [CoordConvTranspose](code/lib/archs/modules/README.md#112)
-	* [CoordConvNet](code/lib/archs/modules/README.md#145)
-* [Recurrent Hourglass](code/lib/archs/modules/README.md#187)
-* [ReNet](code/lib/archs/modules/README.md#225)
-* [VGG16](code/lib/archs/modules/README.md#258)
-	* [VGG16](code/lib/archs/modules/README.md#258)
-	* [SkipVGG16](code/lib/archs/modules/README.md#304)
+* [Convolutional GRU](instance_segmentation/lib/archs/modules/README.md#3)
+* [Coordinate Convolution](instance_segmentation/lib/archs/modules/README.md#44)
+	* [AddCoordinates](instance_segmentation/lib/archs/modules/README.md#44)
+	* [CoordConv](instance_segmentation/lib/archs/modules/README.md#81)
+	* [CoordConvTranspose](instance_segmentation/lib/archs/modules/README.md#112)
+	* [CoordConvNet](instance_segmentation/lib/archs/modules/README.md#145)
+* [Recurrent Hourglass](instance_segmentation/lib/archs/modules/README.md#187)
+* [ReNet](instance_segmentation/lib/archs/modules/README.md#225)
+* [VGG16](instance_segmentation/lib/archs/modules/README.md#258)
+	* [VGG16](instance_segmentation/lib/archs/modules/README.md#258)
+	* [SkipVGG16](instance_segmentation/lib/archs/modules/README.md#304)
 
 ## Networks
 
-* [ReSeg](code/lib/archs/README.md#3)
-* [Stacked Recurrent Hourglass](code/lib/archs/README.md#47)
+* [ReSeg](instance_segmentation/lib/archs/README.md#3)
+* [Stacked Recurrent Hourglass](instance_segmentation/lib/archs/README.md#47)
 
 ----------------------------
 
