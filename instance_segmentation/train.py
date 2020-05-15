@@ -31,11 +31,14 @@ parser.add_argument('--dataset', type=str,
                     required=True)
 opt = parser.parse_args()
 
-assert opt.dataset in ['CVPPP', ]
+assert opt.dataset in ['CVPPP', 'HEBREW']
 
 if opt.dataset == 'CVPPP':
     from instance_segmentation.settings.CVPPP.training_settings import TrainingSettings as CVPPPTrainingSettings
     ts = CVPPPTrainingSettings()
+elif opt.dataset == 'HEBREW':
+    from instance_segmentation.settings.HEBREW.training_settings import TrainingSettings as HEBREWTrainingSettings
+    ts = HEBREWTrainingSettings()
 
 
 def generate_run_id():

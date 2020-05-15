@@ -116,7 +116,7 @@ class AlignCollate(object):
             if self.random_transposing:
                 self.transposer = IU.image_random_transposer()
             if self.random_rotation:
-                self.image_rotator = IU.image_random_rotator(random_bg=True)
+                self.image_rotator = IU.image_random_rotator(random_bg=False)  # Edited by me 9/5/2020 from True to False
                 self.annotation_rotator = IU.image_random_rotator(Image.NEAREST,
                                                                   random_bg=False)
             if self.random_90x_rotation:
@@ -281,7 +281,11 @@ class AlignCollate(object):
         # Make biggest value in tensor equal to one
         image /= torch.max(image)
 
-        # print(torch.unique(image))
+        # thresholding
+        # t = torch.Tensor([0.3])
+        # image = (~(image > t)).float() * .9
+
+        # print(torch.unique(image, return_counts=True))
 
         return (image, semantic_annotation, instance_annotation_resized)
 

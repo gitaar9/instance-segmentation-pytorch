@@ -161,9 +161,7 @@ class DiscriminativeLoss(_Loss):
 
     def __init__(self, delta_var, delta_dist, norm,
                  size_average=True, reduce=True, usegpu=True):
-        print(size_average, reduce)
         super(DiscriminativeLoss, self).__init__(size_average=size_average, reduce=reduce)
-        print(self.reduction)
         assert self.reduction == 'mean'
 
         self.delta_var = float(delta_var)

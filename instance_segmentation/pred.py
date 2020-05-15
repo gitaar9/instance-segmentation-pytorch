@@ -21,7 +21,7 @@ parser.add_argument('--dataset', type=str,
                     required=True)
 opt = parser.parse_args()
 
-assert opt.dataset in ['CVPPP', ]
+assert opt.dataset in ['CVPPP', 'HEBREW']
 
 image_path = opt.image
 model_path = opt.model
@@ -41,6 +41,9 @@ from instance_segmentation.lib.prediction import Prediction
 if opt.dataset == 'CVPPP':
     from instance_segmentation.settings.CVPPP.model_settings import ModelSettings as CVPPPModelSettings
     ms = CVPPPModelSettings()
+elif opt.dataset == 'HEBREW':
+    from instance_segmentation.settings.HEBREW.model_settings import ModelSettings as HEBREWModelSettings
+    ms = HEBREWModelSettings()
 
 model = Model(opt.dataset, ms.MODEL_NAME, ms.N_CLASSES, ms.MAX_N_OBJECTS,
               use_instance_segmentation=ms.USE_INSTANCE_SEGMENTATION,
