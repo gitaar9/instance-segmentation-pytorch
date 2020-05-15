@@ -99,7 +99,7 @@ class AlignCollate(object):
 
         self.random_horizontal_flipping = random_hor_flipping
         self.random_vertical_flipping = random_ver_flipping
-        self.random_transposing =  random_transposing
+        self.random_transposing = random_transposing
         self.random_90x_rotation = random_90x_rotation
         self.random_rotation = random_rotation
         self.random_color_jittering = random_color_jittering
@@ -282,8 +282,8 @@ class AlignCollate(object):
         image /= torch.max(image)
 
         # thresholding
-        # t = torch.Tensor([0.3])
-        # image = (~(image > t)).float() * .9
+        t = torch.Tensor([0.3])
+        image = (~(image > t)).float() * 1.0
 
         # print(torch.unique(image, return_counts=True))
 

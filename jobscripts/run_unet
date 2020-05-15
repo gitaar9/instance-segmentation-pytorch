@@ -1,13 +1,13 @@
 #!/bin/bash
 
-#SBATCH --time=23:55:00
+#SBATCH --time=46:55:00
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu:v100:1
-#SBATCH --mem=100GB
+#SBATCH --mem=32GB
 
-ml Python/3.6.4-foss-2018a
-ml CUDA/9.1.85
+ml CUDA/10.1.243-GCC-8.3.0
+ml Python/3.8.2-GCCcore-9.3.0
 
-source ../venv/bin/activate
+source ../../venv/bin/activate
 
-python -u pretrain_densenet.py
+python -u  train.py --usegpu --nepochs 300 --batchsize 12 --dataset HEBREW --nworkers 12

@@ -3,8 +3,8 @@
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=2
 #SBATCH --mem=32GB
-#SBATCH --time=00:30:00
-#SBATCH --partition=short
+#SBATCH --time=00:90:00
+#SBATCH --partition=vulture
 #SBATCH --job-name=Dataset_completer
 
 ml Python/3.8.2-GCCcore-9.3.0
