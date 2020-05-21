@@ -26,9 +26,9 @@ class TrainingSettings(ModelSettings):
 
         self.OPTIMIZER = 'Adadelta'
         # optimizer - one of : 'RMSprop', 'Adam', 'Adadelta', 'SGD'
-        self.LEARNING_RATE = 1.0
+        self.LEARNING_RATE = 0.01
         self.LR_DROP_FACTOR = 0.1
-        self.LR_DROP_PATIENCE = 20
+        self.LR_DROP_PATIENCE = 10
         self.WEIGHT_DECAY = 0.001
         # weight decay - use 0 to disable it
         self.CLIP_GRAD_NORM = 10.0
