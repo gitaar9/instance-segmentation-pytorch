@@ -39,8 +39,11 @@ class Prediction(object):
         img = transforms.Compose([transforms.ToTensor()])(img)
         # Make biggest value in tensor equal to one
         img /= torch.max(img)
-        # print(torch.max(img))
-        # print(torch.unique(img / torch.max(img)))
+
+        # thresholding
+        t = torch.Tensor([0.3])
+        img = (~(img > t)).float() * 1.0
+
 
         return img, image_height, image_width
 
