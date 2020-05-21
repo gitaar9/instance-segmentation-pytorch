@@ -26,7 +26,7 @@ class TrainingSettings(ModelSettings):
 
         self.OPTIMIZER = 'Adadelta'
         # optimizer - one of : 'RMSprop', 'Adam', 'Adadelta', 'SGD'
-        self.LEARNING_RATE = 0.01
+        self.LEARNING_RATE = 1.0
         self.LR_DROP_FACTOR = 0.1
         self.LR_DROP_PATIENCE = 10
         self.WEIGHT_DECAY = 0.001
@@ -47,7 +47,7 @@ class TrainingSettings(ModelSettings):
 
         self.CRITERION = 'Multi'
         # criterion - One of 'CE', 'Dice', 'Multi'
-        self.OPTIMIZE_BG = False
+        self.OPTIMIZE_BG = True
 
         # self.RANDOM_CROPPING = False
         # CROP_SCALE and CROP_AR is used iff self.RANDOM_CROPPING is True
