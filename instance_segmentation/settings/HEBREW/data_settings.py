@@ -20,6 +20,6 @@ class DataSettings(object):
         self.CLASS_WEIGHTS = None
         # Assign it to None in order to disable class weighting
 
-        self.MAX_N_OBJECTS = 25
+        self.MAX_N_OBJECTS = 29
 
         self.N_CLASSES = 1 + 1
