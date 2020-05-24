@@ -68,10 +68,10 @@ class Model(object):
                                    use_coordinates=self.use_coords,
                                    usegpu=self.usegpu)
             elif self.model_name == 'StackedRecurrentHourglass':
-                self.model = SRecHg(self.n_classes,
-                                    self.use_instance_segmentation,
-                                    self.use_coords,
+                self.model = SRecHg(n_classes=self.n_classes,
+                                    use_instance_seg=self.use_instance_segmentation,
                                     pretrained=True,
+                                    use_coordinates=self.use_coords,
                                     usegpu=self.usegpu)
 
         self.__load_weights()
