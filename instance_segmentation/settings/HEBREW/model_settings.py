@@ -1,5 +1,3 @@
-import os
-import numpy as np
 from instance_segmentation.settings.HEBREW.data_settings import DataSettings
 
 
@@ -13,7 +11,7 @@ class ModelSettings(DataSettings):
         self.MEAN = [0.521697844321, 0.389775426267, 0.206216114391]
         self.STD = [0.212398291819, 0.151755427041, 0.113022107204]
 
-        self.MODEL_NAME = 'StackedRecurrentHourglass'  # 'ReSeg' or 'StackedRecurrentHourglass'
+        self.MODEL_NAME = 'ReSeg'  # 'ReSeg' or 'StackedRecurrentHourglass'
 
         self.USE_INSTANCE_SEGMENTATION = True
         self.USE_COORDINATES = False

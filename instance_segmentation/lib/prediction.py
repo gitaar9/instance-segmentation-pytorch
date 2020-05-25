@@ -64,19 +64,21 @@ class Prediction(object):
 
         sem_seg_prediction = sem_seg_prediction.cpu().numpy()
         sem_seg_prediction = sem_seg_prediction.argmax(0).astype(np.uint8)
-
+        print(f"sem shape{sem_seg_prediction.shape} {np.unique(sem_seg_prediction)}")
         embeddings = ins_seg_prediction.cpu()
         if self.use_coordinates:
             embeddings = self.coordinate_adder(embeddings)
         embeddings = embeddings.numpy()
         embeddings = embeddings.transpose(1, 2, 0)  # h, w, c
-
+        print(embeddings.shape)
         n_objects_prediction = n_objects_prediction.cpu().numpy()[0]
 
+        # print(embeddings)
         embeddings = np.stack([embeddings[:, :, i][sem_seg_prediction != 0]
                                for i in range(embeddings.shape[2])], axis=1)
 
-
+        print(n_objects_prediction)
+        print(embeddings.shape)
         labels = KMeans(n_clusters=n_objects_prediction,
                         n_init=35, max_iter=500,
                         n_jobs=self.n_workers).fit_predict(embeddings)

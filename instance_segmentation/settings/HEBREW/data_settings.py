@@ -22,4 +22,4 @@ class DataSettings(object):
 
         self.MAX_N_OBJECTS = 29
 
-        self.N_CLASSES = 1 + 1
+        self.N_CLASSES = 1 + 27

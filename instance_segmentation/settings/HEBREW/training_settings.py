@@ -47,7 +47,7 @@ class TrainingSettings(ModelSettings):
 
         self.CRITERION = 'Multi'
         # criterion - One of 'CE', 'Dice', 'Multi'
-        self.OPTIMIZE_BG = True
+        self.OPTIMIZE_BG = False
 
         # self.RANDOM_CROPPING = False
         # CROP_SCALE and CROP_AR is used iff self.RANDOM_CROPPING is True
