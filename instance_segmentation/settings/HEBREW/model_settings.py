@@ -19,7 +19,7 @@ class ModelSettings(DataSettings):
         self.USE_COORDINATES = False
 
         self.IMAGE_HEIGHT = 128
-        self.IMAGE_WIDTH = 512
+        self.IMAGE_WIDTH = 1024
 
         self.DELTA_VAR = 0.5
         self.DELTA_DIST = 1.5
