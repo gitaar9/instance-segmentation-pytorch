@@ -17,6 +17,10 @@ parser.add_argument('--usegpu', action='store_true',
 parser.add_argument('--dataset', type=str,
                     help='Name of the dataset which is "CVPPP"',
                     required=True)
+parser.add_argument('--nworkers', type=int,
+                    help='Number of workers for clustering \
+                        (0 to do it using main process) [Default : 2]',
+                    default=2)
 opt = parser.parse_args()
 
 assert opt.dataset in ['CVPPP', 'HEBREW']
@@ -60,7 +64,7 @@ model = Model(opt.dataset, ms.MODEL_NAME, ms.N_CLASSES, ms.MAX_N_OBJECTS,
 
 prediction = Prediction(ms.IMAGE_HEIGHT, ms.IMAGE_WIDTH,
                         ms.MEAN, ms.STD, False, model,
-                        1)
+                        opt.nworkers)
 
 for image_name, image_path in zip(image_names, images_list):
     image, fg_seg_pred, ins_seg_pred, n_objects_pred = \
@@ -93,6 +97,9 @@ for image_name, image_path in zip(image_names, images_list):
     ins_seg_pred_pil.save(os.path.join(_output_path, image_name + '-ins_mask.png'))
     ins_seg_pred_color_pil.save(os.path.join(
         _output_path, image_name + '-ins_mask_color.png'))
+    ins_seg_pred_color_pil.save(os.path.join(
+        output_path, image_name + '-ins_mask_color.png'))
+
     np.save(
         os.path.join(
             _output_path,
