@@ -2,7 +2,7 @@
 
 #SBATCH --time=71:55:00
 #SBATCH --partition=gpu
-#SBATCH --gres=gpu:v100:1
+#SBATCH --gres=gpu:k40:1
 #SBATCH --mem=32GB
 
 ml CUDA/10.1.243-GCC-8.3.0
@@ -10,4 +10,4 @@ ml Python/3.8.2-GCCcore-9.3.0
 
 source ../../venv/bin/activate
 
-python -u  train.py --usegpu --nepochs 300 --batchsize 9 --dataset HEBREW --nworkers 12
+python -u  train.py --usegpu --nepochs 300 --batchsize 8 --dataset HEBREW --nworkers 12
