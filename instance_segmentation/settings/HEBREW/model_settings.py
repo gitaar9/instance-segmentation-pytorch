@@ -21,6 +21,6 @@ class ModelSettings(DataSettings):
         self.IMAGE_HEIGHT = 128
         self.IMAGE_WIDTH = 1024
 
-        self.DELTA_VAR = 0.5
-        self.DELTA_DIST = 1.5
-        self.NORM = 2
+        self.DELTA_VAR = 0.9  # 0.5
+        self.DELTA_DIST = 1.5  # 1.5
+        self.NORM = 1.5  # 2
