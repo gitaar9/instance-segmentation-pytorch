@@ -12,32 +12,6 @@ matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 
 
-def scatter_embeddings(sem_seg_predictions, ins_seg_predictions):
-    sem_seg_preds = np.argmax(sem_seg_predictions.data.cpu().numpy(), axis=1)
-    seg_preds = ins_seg_predictions.data.cpu().numpy()
-
-    _bs, _n_feats = seg_preds.shape[:2]
-
-    _sample_idx = np.random.randint(_bs)
-    _sem_seg_preds_sample = sem_seg_preds[_sample_idx]
-    _seg_preds_sample = seg_preds[_sample_idx]
-
-    fg_ins_embeddings = np.stack(
-        [_seg_preds_sample[i][np.where(
-            _sem_seg_preds_sample == 1)]
-         for i in range(_n_feats)], axis=1)
-    _n_fg_samples = fg_ins_embeddings.shape[0]
-    if _n_fg_samples > 0:
-        # fg_ins_embeddings = \
-        #     fg_ins_embeddings[np.random.choice(
-        #         range(_n_fg_samples), size=400)]
-
-        tsne = TSNE(n_components=2, random_state=0)
-        fg_ins_embeddings_vis = tsne.fit_transform(
-            fg_ins_embeddings)
-        plt.scatter(fg_ins_embeddings_vis[:, 0], fg_ins_embeddings_vis[:, 1], marker=',')
-        plt.show()
-
 
 class Prediction(object):
 
@@ -90,7 +64,6 @@ class Prediction(object):
 
     def cluster(self, sem_seg_prediction, ins_seg_prediction,
                 n_objects_prediction):
-        # scatter_embeddings(sem_seg_prediction, ins_seg_prediction)
 
         sem_seg_prediction = sem_seg_prediction.squeeze(0)
         ins_seg_prediction = ins_seg_prediction.squeeze(0)
@@ -111,14 +84,17 @@ class Prediction(object):
 
         embeddings = np.stack([embeddings[:, :, i][sem_seg_prediction != 0]
                                for i in range(embeddings.shape[2])], axis=1)
+
         print(f"Embeddings size: {embeddings.shape}\nNumber of instances: {n_objects_prediction}")
         print(f"First embedding: {embeddings[0]}")
 
-        # labels = KMeans(n_clusters=n_objects_prediction,
-        #                 n_init=35, max_iter=500,
-        #                 n_jobs=self.n_workers).fit_predict(embeddings)
-        labels = MeanShift(bandwidth=1, min_bin_freq=n_objects_prediction - 4, max_iter=700,
-                           n_jobs=self.n_workers).fit_predict(embeddings)
+        labels = KMeans(n_clusters=n_objects_prediction,
+                        n_init=35, max_iter=500,
+                        n_jobs=self.n_workers).fit_predict(embeddings)
+        # labels = MeanShift(bandwidth=1, min_bin_freq=n_objects_prediction - 4, max_iter=700,
+        #                    n_jobs=self.n_workers).fit_predict(embeddings)
+        print(labels.shape)
+        self.scatter_embeddings(embeddings, labels)
 
         instance_mask = np.zeros((seg_height, seg_width), dtype=np.uint8)
 
@@ -155,3 +131,17 @@ class Prediction(object):
 
         return raw_image, sem_seg_prediction, ins_seg_prediction, \
             n_objects_prediction
+
+    def scatter_embeddings(self, embeddings, labels, amount_of_sampled_points=5000):
+        _n_fg_samples = embeddings.shape[0]
+        if _n_fg_samples > 0:
+            sampled_indexes = np.random.choice(_n_fg_samples, amount_of_sampled_points, replace=False)
+            print("Started the TSNE")
+
+            tsne = TSNE(n_components=2, random_state=0, n_jobs=self.n_workers, perplexity=45)
+            tsne_result = tsne.fit_transform(embeddings)
+            print("Ended the TSNE")
+            for x, y, label in zip(tsne_result[sampled_indexes][:, 0], tsne_result[sampled_indexes][:, 1], labels[sampled_indexes]):
+                plt.scatter(x, y, marker=',', label=label)
+            plt.show()
+
